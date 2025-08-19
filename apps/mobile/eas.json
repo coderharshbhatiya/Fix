@@ -1,0 +1,17 @@
+{
+  "cli": { "version": ">= 12.8.0" },
+  "build": {
+    "preview": {
+      "developmentClient": true,
+      "android": { "buildType": "apk" },
+      "env": { "EXPO_PUBLIC_API_BASE_URL": "https://api.yourdomain.tld" }
+    },
+    "release": {
+      "android": { "gradleCommand": ":app:bundleRelease" },
+      "env": { "EXPO_PUBLIC_API_BASE_URL": "https://api.yourdomain.tld" }
+    }
+  },
+  "submit": {
+    "release": {}
+  }
+}

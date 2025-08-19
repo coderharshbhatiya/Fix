@@ -1,0 +1,19 @@
+openapi: 3.0.3
+info:
+  title: FixWale API
+  version: 0.1.0
+servers:
+  - url: https://api.fixwale.example/v1
+paths:
+  /auth/exchange-firebase:
+    post:
+      summary: Exchange Firebase ID token for API JWT
+      responses:
+        '200':
+          description: OK
+  /me:
+    get:
+      summary: Get profile
+      responses:
+        '200':
+          description: OK

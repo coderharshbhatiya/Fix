@@ -1,0 +1,29 @@
+# Node
+node_modules/
+*.log
+.env
+.env.*
+dist/
+build/
+.turbo/
+
+# Expo/React Native
+.expo/
+android/
+ios/
+*.keystore
+
+# Next.js
+.next/
+out/
+
+# Mac/Linux
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Prisma
+prisma/migrations/

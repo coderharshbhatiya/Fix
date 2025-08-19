@@ -21,6 +21,8 @@
     "zustand": "^4.5.5",
     "socket.io-client": "^4.7.5",
     "expo-notifications": "~0.28.16",
-    "react-native-razorpay": "^2.3.7"
+    "react-native-razorpay": "^2.3.7",
+    "firebase": "^10.12.4",
+    "expo-auth-session": "~5.5.2"
   }
 }

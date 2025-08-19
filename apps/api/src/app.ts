@@ -4,6 +4,12 @@ import helmet from 'helmet';
 import { authRouter } from './routes/auth.js';
 import { meRouter } from './routes/me.js';
 import { categoriesRouter } from './routes/categories.js';
+import { servicesRouter } from './routes/services.js';
+import { requestsRouter } from './routes/requests.js';
+import { bidsRouter } from './routes/bids.js';
+import { bookingsRouter } from './routes/bookings.js';
+import { paymentsRouter } from './routes/payments.js';
+import { walletRouter } from './routes/wallet.js';
 
 export const createApp = () => {
   const app = express();
@@ -18,6 +24,12 @@ export const createApp = () => {
   app.use('/v1/auth', authRouter);
   app.use('/v1/me', meRouter);
   app.use('/v1/categories', categoriesRouter);
+  app.use('/v1/services', servicesRouter);
+  app.use('/v1/requests', requestsRouter);
+  app.use('/v1/requests', bidsRouter);
+  app.use('/v1/bookings', bookingsRouter);
+  app.use('/v1/payments', paymentsRouter);
+  app.use('/v1/wallet', walletRouter);
 
   return app;
 };

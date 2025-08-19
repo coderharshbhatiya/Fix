@@ -1,11 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
-import { Text, View } from 'react-native';
+import RootNavigator from './src/navigation/RootNavigator';
 
 export default function App() {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>FixWale Mobile</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+  return <RootNavigator />;
 }

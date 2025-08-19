@@ -10,6 +10,7 @@ import { bidsRouter } from './routes/bids.js';
 import { bookingsRouter } from './routes/bookings.js';
 import { paymentsRouter } from './routes/payments.js';
 import { walletRouter } from './routes/wallet.js';
+import { devicesRouter } from './routes/devices.js';
 
 export const createApp = () => {
   const app = express();
@@ -30,6 +31,7 @@ export const createApp = () => {
   app.use('/v1/bookings', bookingsRouter);
   app.use('/v1/payments', paymentsRouter);
   app.use('/v1/wallet', walletRouter);
+  app.use('/v1/devices', devicesRouter);
 
   return app;
 };

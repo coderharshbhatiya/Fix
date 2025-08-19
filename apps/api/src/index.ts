@@ -10,6 +10,9 @@ const io = new IOServer(httpServer, { cors: { origin: '*' } });
 
 io.on('connection', (socket) => {
   socket.emit('welcome', { ok: true });
+  socket.on('message:new', (payload) => {
+    io.emit('message:new', payload);
+  });
 });
 
 const port = process.env.PORT || 8080;

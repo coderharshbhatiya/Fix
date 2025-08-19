@@ -1,43 +1,18 @@
 import { Router } from 'express';
 import { requireAuth, AuthedRequest } from '../middleware/auth.js';
-import { randomUUID } from 'crypto';
+import { createBid, listBids } from '../repos/bidsRepo.js';
 
 export const bidsRouter = Router({ mergeParams: true });
 
-type Bid = {
-  id: string;
-  request_id: string;
-  provider_id: string;
-  amount: number;
-  eta_min?: number;
-  note?: string;
-  status: 'active' | 'withdrawn' | 'accepted' | 'rejected';
-  created_at: string;
-};
-
-const bidsMem: Bid[] = [];
-
-bidsRouter.post('/:id/bids', requireAuth, (req: AuthedRequest, res) => {
+bidsRouter.post('/:id/bids', requireAuth, async (req: AuthedRequest, res) => {
   const requestId = req.params.id;
   const { amount, eta_min, note } = req.body || {};
-  const bid: Bid = {
-    id: randomUUID(),
-    request_id: requestId,
-    provider_id: req.user!.uid,
-    amount: Number(amount),
-    eta_min,
-    note,
-    status: 'active',
-    created_at: new Date().toISOString()
-  };
-  bidsMem.push(bid);
+  const bid = await createBid({ request_id: requestId, provider_id: req.user!.uid, amount: Number(amount), eta_min, note });
   res.json(bid);
 });
 
-bidsRouter.get('/:id/bids', requireAuth, (req, res) => {
+bidsRouter.get('/:id/bids', requireAuth, async (req, res) => {
   const requestId = req.params.id;
-  const sort = (req.query.sort as string) || 'price';
-  let items = bidsMem.filter((b) => b.request_id === requestId);
-  if (sort === 'price') items = items.sort((a, b) => a.amount - b.amount);
+  const items = await listBids(requestId);
   res.json({ items });
 });

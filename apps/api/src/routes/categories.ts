@@ -1,13 +1,9 @@
 import { Router } from 'express';
+import { listCategories } from '../repos/categoriesRepo.js';
 
 export const categoriesRouter = Router();
 
-const categories = [
-  { id: 1, name: 'Plumbing' },
-  { id: 2, name: 'Electrician' },
-  { id: 3, name: 'Cleaning' }
-];
-
-categoriesRouter.get('/', (_req, res) => {
-  res.json({ items: categories });
+categoriesRouter.get('/', async (_req, res) => {
+  const items = await listCategories();
+  res.json({ items });
 });

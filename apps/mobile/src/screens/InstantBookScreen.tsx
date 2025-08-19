@@ -1,6 +1,7 @@
 import { View, Text, Button, Alert } from 'react-native';
 import { useAuth } from '../state/auth';
 import { apiPost } from '../api/client';
+import { openRazorpayCheckout } from '../payments/razorpay';
 
 export default function InstantBookScreen({ route }: any) {
   const token = useAuth((s) => s.token);
@@ -9,7 +10,9 @@ export default function InstantBookScreen({ route }: any) {
   const onBook = async () => {
     const booking = await apiPost('/v1/bookings/instant', { service_id, emergency: false }, token);
     const intent = await apiPost('/v1/payments/intent', { booking_id: booking.id, source: 'razorpay' }, token);
-    Alert.alert('Payment', `Order: ${intent.orderId}\nAmount: ₹${(intent.amount / 100).toFixed(2)}`);
+    const key = process.env.EXPO_PUBLIC_RAZORPAY_KEY_ID || 'rzp_test_xxxxx';
+    const pay = await openRazorpayCheckout({ key, amount: intent.amount, currency: intent.currency, name: 'FixWale', description: 'Service booking', order_id: intent.orderId });
+    if (pay.success) Alert.alert('Success', 'Payment captured'); else Alert.alert('Failed', 'Payment cancelled');
   };
 
   return (

@@ -16,6 +16,8 @@ export const createApp = () => {
   const app = express();
   app.use(helmet());
   app.use(cors());
+  // Razorpay webhook must read raw body for signature
+  app.use('/v1/payments/webhooks/razorpay', express.raw({ type: 'application/json' }));
   app.use(express.json({ limit: '2mb' }));
 
   app.get('/health', (_req, res) => {
